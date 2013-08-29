@@ -18,4 +18,8 @@ public class CompMove {
             SeaWars.myField[y][x] = '·';
         }
     }
+
+    public static void standShips() {
+
+    }
 }
