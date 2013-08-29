@@ -31,4 +31,8 @@ public class HumanMove {
             SeaWars.enemyFieldForMy[y][x] = '·';
         }
     }
+
+    public static void standShips() {
+
+    }
 }
