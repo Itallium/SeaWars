@@ -1,6 +1,13 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CompMove {
+
+    public static ArrayList<Battleship> enemyBattleships = new ArrayList<Battleship>();
+
+    public static void stand() {
+
+    }
 
     public static void move() throws IOException {
 
@@ -19,7 +26,4 @@ public class CompMove {
         }
     }
 
-    public static void standShips() {
-
-    }
 }
