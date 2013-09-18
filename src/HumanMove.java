@@ -7,155 +7,96 @@ public class HumanMove {
 
     public static ArrayList<Battleship> myBattleships = new ArrayList<Battleship>();
 
-    public static void stand() throws IOException {
+    public static void move() throws IOException {
 
         int number = 0;
+
         for(int i = 0; i < 10; i++){
             myBattleships.add(i, new Battleship());
         }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         SeaWars.printFields();
         System.out.println("Необходимо расставить корабли на поле.\n");
         do {
             switch (number) {
                 case 0:
-                    System.out.println("Необходимо поставить 4-х палубный корабль.\n Ввод координат:");
-                    do {
-                        System.out.println("Введите строку:");
-                        myBattleships.get(number).y = Integer.parseInt(reader.readLine());
-                        System.out.println("Введите столбец:");
-                        myBattleships.get(number).x = Integer.parseInt(reader.readLine());
-                        if(myBattleships.get(number).y < 0 || myBattleships.get(number).y > 9 || myBattleships.get(number).x < 0 || myBattleships.get(number).x > 9) {
-                            System.out.println("Вы вышли за пределы поля. Повторите ввод");
-                            continue;
-                        }
-
-                        System.out.println("1 - горизонтально, 2 - вертикально");
-                        if (Integer.parseInt(reader.readLine()) == 1) myBattleships.get(number).orientation = "horizontal";
-                        else myBattleships.get(number).orientation = "vertical";
-
-                        if(myBattleships.get(number).orientation.equals("vertical") && (myBattleships.get(number).y + 4 - 1) > 9) {
-                            System.out.println("Корабль выходит за пределы поля. Повторите ввод");
-                            myBattleships.get(number).y = -1;
-                            continue;
-                        }
-
-                        if(myBattleships.get(number).orientation.equals("horizontal") && (myBattleships.get(number).x + 4 - 1) > 9) {
-                            System.out.println("Корабль выходит за пределы поля. Повторите ввод");
-                            myBattleships.get(number).y = -1;
-                            continue;
-                        }
-                    } while(myBattleships.get(number).y < 0 || myBattleships.get(number).y > 9 || myBattleships.get(number).x < 0 || myBattleships.get(number).x > 9);
                     myBattleships.get(number).health = 4;
                     myBattleships.get(number).number = number;
-
-                    if (myBattleships.get(number).orientation.equals("horizontal")) {
-                        for(int i = myBattleships.get(number).x; i < myBattleships.get(number).x + myBattleships.get(number).health; i++) {
-                            SeaWars.myField[myBattleships.get(number).y][i] = '0';
-                            if(myBattleships.get(number).y > 0) SeaWars.myField[myBattleships.get(number).y-1][i] = '%';
-                            if(myBattleships.get(number).y < 9) SeaWars.myField[myBattleships.get(number).y+1][i] = '%';
-                        }
-                    } else {
-                        for(int i = myBattleships.get(number).y; i < myBattleships.get(number).y + myBattleships.get(number).health; i++) {
-                            SeaWars.myField[i][myBattleships.get(number).x] = '0';
-                            if(myBattleships.get(number).x > 0) SeaWars.myField[i][myBattleships.get(number).x-1] = '%';
-                            if(myBattleships.get(number).x < 9) SeaWars.myField[i][myBattleships.get(number).x+1] = '%';
-                        }
-                    }
-
-                    Battleship.dotPaint(number);
+                    myBattleships.get(number).symbol = '0';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
                     break;
                 case 1:
-                    System.out.println("Необходимо поставить 3-х палубный корабль.\n Ввод координат:");
-                    do {
-                        System.out.println("Введите строку:");
-                        myBattleships.get(number).y = Integer.parseInt(reader.readLine());
-                        System.out.println("Введите столбец:");
-                        myBattleships.get(number).x = Integer.parseInt(reader.readLine());
-
-                        if(myBattleships.get(number).y < 0 || myBattleships.get(number).y > 9 || myBattleships.get(number).x < 0 || myBattleships.get(number).x > 9) {
-                            System.out.println("Вы вышли за пределы поля. Повторите ввод");
-                            continue;
-                        }
-
-                        System.out.println("1 - горизонтально, 2 - вертикально");
-                        if (Integer.parseInt(reader.readLine()) == 1) myBattleships.get(number).orientation = "horizontal";
-                        else myBattleships.get(number).orientation = "vertical";
-
-                        if(myBattleships.get(number).orientation.equals("vertical") && (myBattleships.get(number).y + 4 - 1) > 9) {
-                            System.out.println("Корабль выходит за пределы поля. Повторите ввод");
-                            myBattleships.get(number).y = -1;
-                            continue;
-                        }
-
-                        if(myBattleships.get(number).orientation.equals("horizontal") && (myBattleships.get(number).x + 4 - 1) > 9) {
-                            System.out.println("Корабль выходит за пределы поля. Повторите ввод");
-                            myBattleships.get(number).y = -1;
-                            continue;
-                        }
-                    } while(myBattleships.get(number).y < 0 || myBattleships.get(number).y > 9 || myBattleships.get(number).x < 0 || myBattleships.get(number).x > 9);
                     myBattleships.get(number).health = 3;
                     myBattleships.get(number).number = number;
-                    if (myBattleships.get(number).orientation.equals("horizontal")) {
-                        for(int i = myBattleships.get(number).x; i < myBattleships.get(number).x + myBattleships.get(number).health; i++) {
-                            SeaWars.myField[myBattleships.get(number).y][i] = '1';
-                        }
-                    } else {
-                        for(int i = myBattleships.get(number).y; i < myBattleships.get(number).y + myBattleships.get(number).health; i++) {
-                            SeaWars.myField[i][myBattleships.get(number).x] = '1';
-                        }
-                    }
+                    myBattleships.get(number).symbol = '1';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
                     break;
                 case 2:
-                    System.out.println("Необходимо поставить 3-х палубный корабль.\n Ввод координат:");
-                    do {
-                        System.out.println("Введите строку:");
-                        myBattleships.get(number).y = Integer.parseInt(reader.readLine());
-                        System.out.println("Введите столбец:");
-                        myBattleships.get(number).x = Integer.parseInt(reader.readLine());
-
-                        if(myBattleships.get(number).y < 0 || myBattleships.get(number).y > 9 || myBattleships.get(number).x < 0 || myBattleships.get(number).x > 9) {
-                            System.out.println("Вы вышли за пределы поля. Повторите ввод");
-                            continue;
-                        }
-
-                        System.out.println("1 - горизонтально, 2 - вертикально");
-                        if (Integer.parseInt(reader.readLine()) == 1) myBattleships.get(number).orientation = "horizontal";
-                        else myBattleships.get(number).orientation = "vertical";
-
-                        if(myBattleships.get(number).orientation.equals("vertical") && (myBattleships.get(number).y + 4 - 1) > 9) {
-                            System.out.println("Корабль выходит за пределы поля. Повторите ввод");
-                            myBattleships.get(number).y = -1;
-                            continue;
-                        }
-
-                        if(myBattleships.get(number).orientation.equals("horizontal") && (myBattleships.get(number).x + 4 - 1) > 9) {
-                            System.out.println("Корабль выходит за пределы поля. Повторите ввод");
-                            myBattleships.get(number).y = -1;
-                            continue;
-                        }
-                    } while(myBattleships.get(number).y < 0 || myBattleships.get(number).y > 9 || myBattleships.get(number).x < 0 || myBattleships.get(number).x > 9);
                     myBattleships.get(number).health = 3;
                     myBattleships.get(number).number = number;
-                    if (myBattleships.get(number).orientation.equals("vertical")) {
-                        for(int i = myBattleships.get(number).x; i < myBattleships.get(number).x + myBattleships.get(number).health; i++) {
-                            SeaWars.myField[myBattleships.get(number).y][i] = '2';
-                        }
-                    } else {
-                        for(int i = myBattleships.get(number).y; i < myBattleships.get(number).y + myBattleships.get(number).health; i++) {
-                            SeaWars.myField[i][myBattleships.get(number).x] = '2';
-                        }
-                    }
+                    myBattleships.get(number).symbol = '2';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
+                    break;
+                case 3:
+                    myBattleships.get(number).health = 2;
+                    myBattleships.get(number).number = number;
+                    myBattleships.get(number).symbol = '3';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
+                    break;
+                case 4:
+                    myBattleships.get(number).health = 2;
+                    myBattleships.get(number).number = number;
+                    myBattleships.get(number).symbol = '4';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
+                    break;
+                case 5:
+                    myBattleships.get(number).health = 2;
+                    myBattleships.get(number).number = number;
+                    myBattleships.get(number).symbol = '5';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
+                    break;
+                case 6:
+                    myBattleships.get(number).health = 1;
+                    myBattleships.get(number).number = number;
+                    myBattleships.get(number).symbol = '6';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
+                    break;
+                case 7:
+                    myBattleships.get(number).health = 1;
+                    myBattleships.get(number).number = number;
+                    myBattleships.get(number).symbol = '7';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
+                    break;
+                case 8:
+                    myBattleships.get(number).health = 1;
+                    myBattleships.get(number).number = number;
+                    myBattleships.get(number).symbol = '8';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
+                    break;
+                case 9:
+                    myBattleships.get(number).health = 1;
+                    myBattleships.get(number).number = number;
+                    myBattleships.get(number).symbol = '9';
+                    Battleship.standMyShips(number);
+                    Battleship.dotPaintForMyShips(number, myBattleships.get(number).health);
                     break;
             }
-//            number++;
+            number++;
             SeaWars.printFields();
-        } while(number < 3);
+        } while(number < 10);
 
     }
 
-    public static void move() throws IOException {
+    public static void shoot() throws IOException {
 
         int x = -1, y = -1;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -175,8 +116,10 @@ public class HumanMove {
                 continue;
             }
         }
-        if(SeaWars.enemyField[y][x] == '@') {
-            SeaWars.enemyFieldForMy[y][x] = '@';
+        if(SeaWars.enemyField[y][x] != ' ' && SeaWars.enemyField[y][x] != '#') {
+            CompMove.enemyBattleships.get(Integer.parseInt(Character.toString(SeaWars.enemyField[y][x]))).health--;
+            SeaWars.enemyFieldForMy[y][x] = '#';
+            SeaWars.enemyField[y][x] = '#';
         }
         if(SeaWars.enemyField[y][x] == ' ') {
             SeaWars.enemyFieldForMy[y][x] = '·';
